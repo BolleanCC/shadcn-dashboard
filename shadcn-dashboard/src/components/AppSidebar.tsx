@@ -1,11 +1,12 @@
 "use client";
-import { Home, Inbox, Calendar, Search, Settings, Link as LinkIcon, User2, ChevronUp } from "lucide-react";
+import { Home, Inbox, Calendar, Search, Settings, Link as LinkIcon, User2, ChevronUp, Plus, Projector, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
@@ -16,6 +17,7 @@ import {
 } from "@/components/ui/sidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@radix-ui/react-collapsible";
 
 const items = [
   {
@@ -81,6 +83,42 @@ const AppSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        {/* COLLAPSABLE */}
+        <Collapsible defaultOpen className="group/collapsible">
+        <SidebarGroup>
+          <SidebarGroupLabel asChild>
+            <CollapsibleTrigger>
+            Collapsable Group
+              <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180"/> 
+            </CollapsibleTrigger>
+            </SidebarGroupLabel>  
+          <CollapsibleContent>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/projects">
+                    <Projector />
+                    See All Projects
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/projects">
+                    <Plus />
+                    Add Project
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+          </CollapsibleContent>
+        </SidebarGroup>
+        </Collapsible>
+        
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
