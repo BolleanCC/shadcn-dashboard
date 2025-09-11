@@ -11,6 +11,7 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
@@ -78,8 +79,39 @@ const AppSidebar = () => {
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
+                  {item.title === "Inbox" && (<SidebarMenuBadge>24</SidebarMenuBadge>)}
                 </SidebarMenuItem>
               ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>
+            Projects
+            </SidebarGroupLabel>  
+            <SidebarGroupAction>
+              <Plus /><span className="sr-only">Add Project</span>
+            </SidebarGroupAction>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/projects">
+                    <Projector />
+                    See All Projects
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/projects">
+                    <Plus />
+                    Add Project
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -117,8 +149,7 @@ const AppSidebar = () => {
           </SidebarGroupContent>
           </CollapsibleContent>
         </SidebarGroup>
-        </Collapsible>
-        
+        </Collapsible>     
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
