@@ -14,6 +14,8 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -149,7 +151,44 @@ const AppSidebar = () => {
           </SidebarGroupContent>
           </CollapsibleContent>
         </SidebarGroup>
-        </Collapsible>     
+        </Collapsible>   
+        {/* NESTED */}
+        <SidebarGroup>
+          <SidebarGroupLabel>
+            Nested Items
+            </SidebarGroupLabel>  
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/projects">
+                    <Projector />
+                    See All Projects
+                  </Link>
+                </SidebarMenuButton>
+                <SidebarMenuSub>
+                  <SidebarMenuItem>
+                  <SidebarMenuSubButton asChild>
+                    <Link href="/projects">
+                      <Plus />
+                      Add Project
+                    </Link>
+                  </SidebarMenuSubButton>
+                  <SidebarMenuSubButton asChild>
+                    <Link href="/projects">
+                      <Plus />
+                      Add Category
+                    </Link>
+                  </SidebarMenuSubButton>
+                  </SidebarMenuItem>
+                </SidebarMenuSub>
+              </SidebarMenuItem>
+            </SidebarMenu>
+            <SidebarMenu>           
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
