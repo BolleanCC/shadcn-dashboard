@@ -1,6 +1,6 @@
 "use client"
 
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 import { Bar, CartesianGrid, XAxis, YAxis } from "recharts";
 import { BarChart } from "recharts";
 
@@ -43,6 +43,7 @@ const AppBarChart = () => {
                         axisLine={false}
                     />
                     <ChartTooltip content={<ChartTooltipContent />} />
+                    <ChartLegend content={<ChartLegendContent />} />
                     <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
                     <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
                 </BarChart>
