@@ -24,8 +24,8 @@ const Navbar = () => {
     <nav className="p-4 flex items-center justify-between">
       {/* LEFT */}
       <div className="flex items-center">
-        {/* <SidebarTrigger /> */}
-        <Button variant="outline" onClick={toggleSidebar}>Custom Button</Button>
+        <SidebarTrigger />
+        {/* <Button variant="outline" onClick={toggleSidebar}>Custom Button</Button> */}
       </div>
       {/* RIGHT */}
       <div className="flex items-center gap-4">
