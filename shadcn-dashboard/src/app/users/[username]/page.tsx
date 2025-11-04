@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button";
 import EditUser from "@/components/EditUser";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 const SingleUserPage = () => {
     return (
@@ -142,8 +143,15 @@ const SingleUserPage = () => {
                 {/* RIGHT SIDE */}
                 <div className="w-full xl:w-2/3 space-y-6">
                     {/* USERCARD CONTAINER*/}
-                    <div className="bg-primary-foreground rounded-lg p-4">
-                        User Card
+                    <div className="bg-primary-foreground rounded-lg p-4 space-y-2">
+                        <div className="flex items-center gap-2">
+                            <Avatar className="size-12 rounded-full">
+                                <AvatarImage src="https://github.com/shadcn.png" />
+                                <AvatarFallback>JD</AvatarFallback>
+                            </Avatar>
+                            <h1 className="text-xl font-semibold">Songtao Dev</h1>
+                        </div>
+                        <p className="text-sm text-muted-foreground">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptate minima in culpa modi voluptates incidunt? Reiciendis nam quibusdam minus illo a officia, numquam, accusantium at ab repellendus vero assumenda eos!</p>
                     </div>
                     {/* CHART CONTAINER*/}
                     <div className="bg-primary-foreground rounded-lg p-4">
