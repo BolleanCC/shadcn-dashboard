@@ -1,23 +1,48 @@
+import { notFound } from "next/navigation";
 import CardList from "@/components/CardList";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Progress } from "@/components/ui/progress";
-import { BadgeCheck, Candy, Citrus, Edit, Pencil, Shield } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { BadgeCheck, Candy, Citrus, Shield } from "lucide-react";
+import { Badge as UIBadge } from "@/components/ui/badge";
 import {
     Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button";
 import EditUser from "@/components/EditUser";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import AppLineChart from "@/components/AppLineChart";
+import { users } from "@/data/users";
 
-const SingleUserPage = () => {
+interface SingleUserPageProps {
+    params: {
+        username: string;
+    };
+}
+
+const getBadgeIcon = (color: string) => {
+    switch (color) {
+        case "blue":
+            return <BadgeCheck size={36} className="rounded-full bg-blue-500/30 border-1 border-blue-500/50 p-2" />;
+        case "green":
+            return <Shield size={36} className="rounded-full bg-green-800/30 border-1 border-green-800/50 p-2" />;
+        case "yellow":
+            return <Candy size={36} className="rounded-full bg-yellow-500/30 border-1 border-yellow-500/50 p-2" />;
+        case "orange":
+            return <Citrus size={36} className="rounded-full bg-orange-500/30 border-1 border-orange-500/50 p-2" />;
+        default:
+            return <BadgeCheck size={36} className="rounded-full bg-blue-500/30 border-1 border-blue-500/50 p-2" />;
+    }
+};
+
+const SingleUserPage = ({ params }: SingleUserPageProps) => {
+    const user = users.find((u) => u.id === params.username);
+
+    if (!user) {
+        notFound();
+    }
+
     return (
         <div>
             <Breadcrumb>
@@ -31,7 +56,7 @@ const SingleUserPage = () => {
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
-                        <BreadcrumbPage>Songtao</BreadcrumbPage>
+                        <BreadcrumbPage>{user.name}</BreadcrumbPage>
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
@@ -42,57 +67,16 @@ const SingleUserPage = () => {
                     {/* USER BADGES CONTAINER*/}
                     <div className="bg-primary-foreground rounded-lg p-4">
                         <h1 className="text-xl s font-semibold">User Badges</h1>
-                        <div className="flex gap-4 mt-4">
-                            <HoverCard>
-                                <HoverCardTrigger><BadgeCheck size={36} className="rounded-full bg-blue-500/30 border-1 border-blue-500/50 p-2" /></HoverCardTrigger>
-                                <HoverCardContent>
-                                    <h1 className="font-bold mb-2">Verified User</h1>
-                                    <p className="text-sm text-muted-foreground">This user has been verified by the platform.</p>
-                                </HoverCardContent>
-                            </HoverCard>
-                            <HoverCard>
-                                <HoverCardTrigger>
-                                    <Shield
-                                        size={36}
-                                        className="rounded-full bg-green-800/30 border-1 border-green-800/50 p-2"
-                                    />
-                                </HoverCardTrigger>
-                                <HoverCardContent>
-                                    <h1 className="font-bold mb-2">Admin</h1>
-                                    <p className="text-sm text-muted-foreground">
-                                        Admin users have access to all features and can manage
-                                        users.
-                                    </p>
-                                </HoverCardContent>
-                            </HoverCard>
-                            <HoverCard>
-                                <HoverCardTrigger>
-                                    <Candy
-                                        size={36}
-                                        className="rounded-full bg-yellow-500/30 border-1 border-yellow-500/50 p-2"
-                                    />
-                                </HoverCardTrigger>
-                                <HoverCardContent>
-                                    <h1 className="font-bold mb-2">Awarded</h1>
-                                    <p className="text-sm text-muted-foreground">
-                                        This user has been awarded for their contributions.
-                                    </p>
-                                </HoverCardContent>
-                            </HoverCard>
-                            <HoverCard>
-                                <HoverCardTrigger>
-                                    <Citrus
-                                        size={36}
-                                        className="rounded-full bg-orange-500/30 border-1 border-orange-500/50 p-2"
-                                    />
-                                </HoverCardTrigger>
-                                <HoverCardContent>
-                                    <h1 className="font-bold mb-2">Popular</h1>
-                                    <p className="text-sm text-muted-foreground">
-                                        This user has been popular in the community.
-                                    </p>
-                                </HoverCardContent>
-                            </HoverCard>
+                        <div className="flex gap-4 mt-4 flex-wrap">
+                            {user.badges.map((badge, index) => (
+                                <HoverCard key={index}>
+                                    <HoverCardTrigger>{getBadgeIcon(badge.color)}</HoverCardTrigger>
+                                    <HoverCardContent>
+                                        <h1 className="font-bold mb-2">{badge.name}</h1>
+                                        <p className="text-sm text-muted-foreground">{badge.description}</p>
+                                    </HoverCardContent>
+                                </HoverCard>
+                            ))}
                         </div>
                     </div>
                     {/* INFORMATION CONTAINER*/}
@@ -109,30 +93,30 @@ const SingleUserPage = () => {
                         <div className="space-y-4 mt-4">
                             <div className="flex flex-col gap-2 mb-8">
                                 <p className="text-sm text-muted-foreground">Profile Completion</p>
-                                <Progress value={66} />
+                                <Progress value={user.profileCompletion} />
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className="font-bold">Username</span>
-                                <span>Songtao</span>
+                                <span className="font-bold">Username:</span>
+                                <span>{user.name}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="font-bold">Email:</span>
-                                <span>john.doe@gmail.com</span>
+                                <span>{user.email}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="font-bold">Phone:</span>
-                                <span>+1 234 5678</span>
+                                <span>{user.phone}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="font-bold">Location:</span>
-                                <span>New York, NY</span>
+                                <span>{user.location}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="font-bold">Role:</span>
-                                <Badge>Admin</Badge>
+                                <UIBadge>{user.role}</UIBadge>
                             </div>
                             <p className="text-sm text-muted-foreground">
-                                Joined on <span className="font-bold">2021-01-01</span>
+                                Joined on <span className="font-bold">{new Date(user.joinedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                             </p>
                         </div>
                     </div>
@@ -147,12 +131,12 @@ const SingleUserPage = () => {
                     <div className="bg-primary-foreground rounded-lg p-4 space-y-2">
                         <div className="flex items-center gap-2">
                             <Avatar className="size-12 rounded-full">
-                                <AvatarImage src="https://github.com/shadcn.png" />
-                                <AvatarFallback>JD</AvatarFallback>
+                                <AvatarImage src={user.avatar} alt={user.name} />
+                                <AvatarFallback>{user.initials}</AvatarFallback>
                             </Avatar>
-                            <h1 className="text-xl font-semibold">Songtao Dev</h1>
+                            <h1 className="text-xl font-semibold">{user.name}</h1>
                         </div>
-                        <p className="text-sm text-muted-foreground">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptate minima in culpa modi voluptates incidunt? Reiciendis nam quibusdam minus illo a officia, numquam, accusantium at ab repellendus vero assumenda eos!</p>
+                        <p className="text-sm text-muted-foreground">{user.bio}</p>
                     </div>
                     {/* CHART CONTAINER*/}
                     <div className="bg-primary-foreground rounded-lg p-4">
