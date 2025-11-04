@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import EditUser from "@/components/EditUser";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import AppLineChart from "@/components/AppLineChart";
 
 const SingleUserPage = () => {
     return (
@@ -155,7 +156,8 @@ const SingleUserPage = () => {
                     </div>
                     {/* CHART CONTAINER*/}
                     <div className="bg-primary-foreground rounded-lg p-4">
-                        Chart
+                        <h1 className="text-xl font-semibold">User Activity</h1>
+                        <AppLineChart />
                     </div>
                 </div>
             </div>
