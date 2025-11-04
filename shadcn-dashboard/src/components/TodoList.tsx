@@ -15,6 +15,7 @@ const TodoList = () => {
     const [open, setOpen] = useState(false);
     return (
         <div className="">
+            <h1 className="text-lg font-medium mb-6">Todo List</h1>
             <Popover open={open} onOpenChange={setOpen}>
                 <PopoverTrigger asChild>
                     <Button variant="outline" className="w-full">
@@ -22,12 +23,12 @@ const TodoList = () => {
                         {date ? format(date, "PPP") : <span>Select date</span>}
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
+                <PopoverContent className="w-auto p-0 hover:cursor-pointer">
                     <Calendar
                         mode="single"
                         selected={date}
                         onSelect={(date) => { setDate(date); setOpen(false); }}
-                        className="rounded-lg border"
+                        className="rounded-lg border hover:cursor-pointer"
                     />
                 </PopoverContent>
             </Popover>
