@@ -2,8 +2,18 @@ import CardList from "@/components/CardList";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Progress } from "@/components/ui/progress";
-import { BadgeCheck, Candy, Citrus, Shield } from "lucide-react";
+import { BadgeCheck, Candy, Citrus, Edit, Pencil, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button";
+import EditUser from "@/components/EditUser";
 
 const SingleUserPage = () => {
     return (
@@ -85,7 +95,15 @@ const SingleUserPage = () => {
                     </div>
                     {/* INFORMATION CONTAINER*/}
                     <div className="bg-primary-foreground rounded-lg p-4">
-                        <h1 className="text-xl sm:text-2xl font-semibold">User Information</h1>
+                        <div className="flex items-center justify-between">
+                            <h1 className="text-xl sm:text-2xl font-semibold">User Information</h1>
+                            <Sheet>
+                                <SheetTrigger asChild>
+                                    <Button className="hover:cursor-pointer">Edit User</Button>
+                                </SheetTrigger>
+                                <EditUser />
+                            </Sheet>
+                        </div>
                         <div className="space-y-4 mt-4">
                             <div className="flex flex-col gap-2 mb-8">
                                 <p className="text-sm text-muted-foreground">Profile Completion</p>
